@@ -1,6 +1,6 @@
 {
   "name": "react-particle-svg-pro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Professional particle animation component for SVG logos with explode and fade effects",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

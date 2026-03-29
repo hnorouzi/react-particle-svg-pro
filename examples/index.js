@@ -1,0 +1,248 @@
+import React, { useRef, useState, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
+import ParticleSVG from '../src/components/ParticleSVG';
+
+// SVG لوگو
+const myLogo = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 486.31 232.17">
+  <g>
+    <path fill="black" d="M485.31,79.32c0-3.48-2.74-6.29-8.21-8.43-5.47-2.13-10.27-3.21-14.4-3.21-13.17,0-29.27,7.2-48.31,21.6-18.25,13.77-29.83,26.82-34.74,39.16-1.27,2.22-2.58,4.51-3.93,6.89-1.35,2.37-2.02,5.22-2.02,8.54,0,3.8,1.03,7.55,3.09,11.27,2.06,3.72,4.76,5.58,8.09,5.58,4.76,0,14.2-2.69,28.32-8.09,18.09-6.82,28.16-14.2,30.22-22.13,0,10.47.51,18.8,1.55,24.98,1.03,6.19,3.29,9.28,6.78,9.28l5.71-.72c.95,0,2.22.32,3.81.95,1.58.64,2.69.95,3.33.95,2.06,0,3.73-.63,5-1.9,1.27-1.26,2.22-2.93,2.86-4.99-.32-.63-.79-2.17-1.43-4.63-.64-2.45-.95-4.07-.95-4.87,0-8.23,2.54-20.34,7.62-36.32,5.07-15.98,7.61-27.3,7.61-33.95h0ZM464.37,83.39c0,5.85-7.38,16.83-22.13,32.94-14.75,16.12-25.46,24.18-32.13,24.18-1.43,0-2.14-.79-2.14-2.37,0-7.59,7.1-18.92,21.3-34.01,14.2-15.09,24.94-22.63,32.24-22.63.79,0,1.46.16,2.02.47.55.32.83.79.83,1.42h0ZM360.99,110.76c8.09-18.72,12.14-29.34,12.14-31.89,0-2.06-.88-3.49-2.63-4.28-1.75-.79-3.74-1.19-5.97-1.19-10.51,0-21.02,7.78-31.53,23.32-7.32,11.42-14.57,22.84-21.74,34.26v-7.85c0-10.63.44-19.83,1.31-27.6.87-7.77,2.42-14.44,4.64-19.99,0-2.38-.79-4.52-2.38-6.43-1.59-1.9-3.57-2.85-5.95-2.85-1.75,0-3.97.95-6.66,2.85-3.65,2.7-6.19,4.37-7.62,5-3.49,2.7-5.95,6.9-7.38,12.61-1.43,5.71-2.14,14.92-2.14,27.6l.71,30.94c0,6.51.51,10.99,1.54,13.44,1.02,2.46,3.27,3.69,6.75,3.69,1.74,0,4.66-.79,8.76-2.38,4.11-1.59,6.51-2.89,7.22-3.93.71-1.03,3.59-6.3,8.64-15.82,6-11.1,11.53-19.51,16.58-25.23-5.83,14.12-11.97,30.3-18.42,48.55-8.66,24.59-12.99,40.21-12.99,46.88,0,3.49,1.03,7.81,3.09,12.97,2.06,5.16,4.52,7.73,7.38,7.73,6.35,0,14.4-5.95,24.15-17.85,9.76-11.9,14.63-21.18,14.63-27.84,0-3.81-1.03-5.71-3.09-5.71-1.11,0-2.26.79-3.45,2.38-1.19,1.58-2.26,3.09-3.21,4.52,0,3.01-2.11,7.18-6.31,12.49-4.21,5.31-7.81,7.97-10.83,7.97,0-7.78,4.04-22.05,12.14-42.83,3.01-7.77,10.55-25.62,22.6-53.54h0ZM275.71,87.92c2.85-5.07,4.28-8.49,4.28-10.23,0-.95-.64-2.74-1.91-5.35-1.27-2.62-2.38-4.96-3.33-7.02-.95-.79-1.71-1.35-2.26-1.67-.56-.31-1.39-.47-2.5-.47-1.27,0-2.62.64-4.04,1.9-.8.64-2.14,1.83-4.05,3.57-6.66,4.13-10.47,6.74-11.42,7.85-2.22,2.54-3.33,7.06-3.33,13.57,0,3.81.39,7.54,1.19,11.18,0,.48.16,1.11.48,1.9-3.65,4.6-6.75,9.76-9.28,15.47-.79,1.9-1.51,2.86-2.14,2.86-.48,0-.79-.2-.95-.59-.16-.4-.32-.83-.47-1.31.95-3.81,1.86-7.73,2.74-11.78.87-4.05,1.31-8.37,1.31-12.97,0-3.81-.4-6.82-1.19-9.04-.79-2.22-2.7-3.73-5.71-4.52-.48.16-2.11.88-4.88,2.14-2.78,1.27-4.4,1.9-4.88,1.9-3.81,0-8.13,1.11-12.97,3.33-4.84,2.22-7.26,5.08-7.26,8.57,0,2.22.79,3.77,2.38,4.64,1.58.87,3.57,1.31,5.95,1.31s3.57,1.03,3.57,3.09c0,7.3-.56,14.04-1.66,20.23-1.59,8.89-4.21,14.68-7.85,17.37-.48.32-1.75,1.23-3.81,2.74-2.07,1.51-3.09,2.82-3.09,3.93,0,2.22,1.7,5.51,5.12,9.87,3.41,4.37,6.62,6.54,9.64,6.54,1.27,0,3.73-1.07,7.38-3.21,3.65-2.14,6.66-4.12,9.04-5.95,2.38-1.82,8.01-11.7,16.89-29.62,3.49-7.14,6.19-10.71,8.09-10.71.79,0,1.94.68,3.45,2.02,1.5,1.35,3.05,2.02,4.64,2.02,1.9-.63,5.31-1.59,10.23-2.86,3.97-1.58,5.95-4.12,5.95-7.61,0-3.81-.95-6.9-2.86-9.28-1.9-2.38-2.85-4.6-2.85-6.66,0-1.9.79-4.28,2.38-7.14h0ZM178.99,148.36c-1.9-5.6-2.85-13.14-2.85-22.6,3.81-1.59,5.71-3.9,5.71-6.92,0-2.07-.99-3.54-2.97-4.41-1.98-.87-3.21-1.63-3.69-2.27-.32-1.75-.52-3.57-.6-5.49-.08-1.91-.12-5.17-.12-9.78,0-17.64.79-33.23,2.38-46.75,1.58-13.51,3.41-27.03,5.47-40.55,0-1.75-.6-3.62-1.78-5.61-1.19-1.98-2.5-2.98-3.93-2.98-2.06,0-11.18,9.13-27.36,27.38-.64.79-15.23,17.78-43.79,50.95-15.71,18.41-24.43,27.86-26.18,28.33-2.7-.31-5.55-.55-8.57-.71-3.02-.16-5.63-.24-7.85-.24-4.44,0-9.64,2.3-15.59,6.9-5.95,4.6-8.92,7.85-8.92,9.76,0,2.7,1.43,4.68,4.28,5.95,1.9.79,4.36,1.19,7.38,1.19h13.33l.95.71c0,1.9-5.47,9.91-16.42,24.02-10.15,13-20.3,26-30.46,39-10.95,14.26-16.42,22.35-16.42,24.26,0,1.11.6,2.18,1.78,3.21,1.19,1.02,2.34,1.54,3.45,1.54.95,0,3.18-.79,6.66-2.38,1.75-.79,3.97-1.82,6.66-3.09,1.75-1.11,8.17-9.04,19.27-23.78,12.37-16.65,22.29-30.12,29.75-40.43,10.79-15.06,16.42-22.75,16.9-23.07h18.08c4.76,0,11.66-.79,20.7-2.38,9.04-1.59,15.86-2.38,20.46-2.38.63,0,1.35.32,2.14.95,0,2.07,1.27,8.37,3.81,18.92,2.54,10.55,4.2,16.22,5,17.01,2.69,2.07,5.95,3.65,9.76,4.76,3.81,1.11,8.01,1.67,12.61,1.67,1.74,0,3.09-.48,4.04-1.42.95-.95,1.74-2.29,2.38-4.02-1.75-4.57-3.57-9.66-5.47-15.26h0ZM152.58,43.42c-1.75,8.12-3.37,16.24-4.88,24.36-1.51,8.12-2.26,17.19-2.26,27.22v16.95c-.47,0-9.84-.62-28.08-1.85-5.24-.35-10.47-.53-15.71-.53l-1.43-.95c3.81-4.76,7.61-9.6,11.42-14.52,10-12.69,17.61-22.29,22.85-28.79,8.72-10.95,14.75-18.24,18.08-21.89h0Z"/>
+  </g>
+</svg>`;
+
+const App = () => {
+  const particleRef = useRef(null);
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState('در حال آماده‌سازی...');
+  const [colorMode, setColorMode] = useState('single');
+  const [particleCount, setParticleCount] = useState(2000);
+  const [animationMode, setAnimationMode] = useState('morph');
+  const [particleColor, setParticleColor] = useState('#ff6b6b');
+  
+  // متدهای کنترل
+  const handleExplode = () => {
+    if (particleRef.current) {
+      particleRef.current.explode();
+    }
+  };
+  
+  const handleReset = () => {
+    if (particleRef.current) {
+      particleRef.current.reset();
+    }
+  };
+  
+  const handleScreenshot = async () => {
+    if (particleRef.current) {
+      await particleRef.current.downloadScreenshot(`particle-${Date.now()}.png`);
+    }
+  };
+  
+  // رنگ‌های مختلف برای تست
+  const colors = [
+    { name: 'قرمز', value: '#ff6b6b' },
+    { name: 'آبی', value: '#4dabf7' },
+    { name: 'سبز', value: '#51cf66' },
+    { name: 'بنفش', value: '#9775fa' },
+    { name: 'صورتی', value: '#f783ac' },
+    { name: 'نارنجی', value: '#ff922b' }
+  ];
+  
+  return (
+    <div style={{ width: '100%', height: '100%', position: 'relative', background: '#0a0a0a' }}>
+      <ParticleSVG
+        ref={particleRef}
+        svgString={myLogo}
+        particleCount={particleCount}
+        particleColor={particleColor}
+        backgroundColor="#0a0a0a"
+        animationDuration={2500}
+        explodeDuration={800}
+        fadeDuration={2000}
+        colorMode={colorMode}
+        animationMode={animationMode}
+        mouseEffect={true}
+        mouseEffectType="repel"
+        wobbleEffect={true}
+        wobbleIntensity={1.5}
+        onReady={() => setStatus('✅ آماده | موس رو حرکت بده!')}
+        onStart={() => setStatus('✨ ذرات در حال حرکت...')}
+        onProgress={(p) => setProgress(p)}
+        onComplete={() => setStatus('🎯 لوگو تشکیل شد - می‌تونی پودرش کنی!')}
+        onExplodeStart={() => setStatus('💥 پودر کردن لوگو...')}
+        onExplodeComplete={() => setStatus('✨ در حال محو شدن...')}
+        onFadeComplete={() => setStatus('💨 محو شد | دکمه تکرار رو بزن')}
+      />
+      
+      {/* پنل کنترل */}
+      <div style={{
+        position: 'fixed',
+        top: 20,
+        left: 20,
+        background: 'rgba(0,0,0,0.9)',
+        backdropFilter: 'blur(15px)',
+        borderRadius: 20,
+        padding: 20,
+        color: 'white',
+        zIndex: 1000,
+        minWidth: 280,
+        border: '1px solid rgba(255,255,255,0.2)',
+        fontSize: 13,
+        maxHeight: '90vh',
+        overflowY: 'auto'
+      }}>
+        <h3 style={{ margin: '0 0 15px 0', fontSize: 16 }}>🎛️ کنترلر حرفه‌ای</h3>
+        
+        <div style={{ marginBottom: 15 }}>
+          <div style={{ marginBottom: 5, color: '#aaa' }}>🎨 تعداد ذرات: <strong style={{ color: '#ff6b6b' }}>{particleCount}</strong></div>
+          <input 
+            type="range" 
+            min="500" 
+            max="5000" 
+            step="100"
+            value={particleCount}
+            onChange={(e) => setParticleCount(parseInt(e.target.value))}
+            style={{ width: '100%', cursor: 'pointer' }}
+          />
+        </div>
+        
+        <div style={{ marginBottom: 15 }}>
+          <div style={{ marginBottom: 5, color: '#aaa' }}>🎨 رنگ ذرات</div>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {colors.map(c => (
+              <button
+                key={c.value}
+                onClick={() => setParticleColor(c.value)}
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 15,
+                  background: c.value,
+                  border: particleColor === c.value ? '2px solid white' : '1px solid rgba(255,255,255,0.3)',
+                  cursor: 'pointer'
+                }}
+                title={c.name}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <div style={{ marginBottom: 15 }}>
+          <div style={{ marginBottom: 5, color: '#aaa' }}>🌈 حالت رنگ</div>
+          <select 
+            value={colorMode} 
+            onChange={(e) => setColorMode(e.target.value)}
+            style={{ width: '100%', padding: 8, borderRadius: 10, background: '#333', color: 'white', border: 'none', cursor: 'pointer' }}
+          >
+            <option value="single">تک رنگ</option>
+            <option value="rainbow">رنگین‌کمان</option>
+            <option value="heat">حرارتی</option>
+          </select>
+        </div>
+        
+        <div style={{ marginBottom: 15 }}>
+          <div style={{ marginBottom: 5, color: '#aaa' }}>🌀 حالت انیمیشن</div>
+          <select 
+            value={animationMode} 
+            onChange={(e) => setAnimationMode(e.target.value)}
+            style={{ width: '100%', padding: 8, borderRadius: 10, background: '#333', color: 'white', border: 'none', cursor: 'pointer' }}
+          >
+            <option value="morph">مرفینگ</option>
+            <option value="vortex">گردابی</option>
+            <option value="wave">موجی</option>
+            <option value="bounce">جهشی</option>
+          </select>
+        </div>
+        
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 15 }}>
+          <button 
+            onClick={handleExplode}
+            style={{ background: '#ff4444', border: 'none', padding: '8px 16px', borderRadius: 10, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            💥 پودر کردن
+          </button>
+          <button 
+            onClick={handleReset}
+            style={{ background: '#444', border: 'none', padding: '8px 16px', borderRadius: 10, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            🔄 تکرار
+          </button>
+          <button 
+            onClick={handleScreenshot}
+            style={{ background: '#2c3e50', border: 'none', padding: '8px 16px', borderRadius: 10, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            📸 عکس
+          </button>
+        </div>
+        
+        <div style={{ marginTop: 15, paddingTop: 10, borderTop: '1px solid rgba(255,255,255,0.1)', fontSize: 11, color: '#666' }}>
+          پیشرفت: {progress}%
+        </div>
+      </div>
+      
+      {/* وضعیت */}
+      <div style={{
+        position: 'fixed',
+        top: 20,
+        right: 20,
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(10px)',
+        padding: '10px 20px',
+        borderRadius: 30,
+        fontSize: 13,
+        zIndex: 1000,
+        color: 'white'
+      }}>
+        {status}
+      </div>
+      
+      {/* نوار پیشرفت */}
+      <div style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        height: 3,
+        width: `${progress}%`,
+        background: 'linear-gradient(90deg, #ff6b6b, #ff922b)',
+        transition: 'width 0.1s linear',
+        zIndex: 1000
+      }} />
+      
+      {/* دکمه‌های سریع پایین */}
+      <div style={{
+        position: 'fixed',
+        bottom: 20,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        display: 'flex',
+        gap: 12,
+        zIndex: 1000,
+        background: 'rgba(0,0,0,0.5)',
+        backdropFilter: 'blur(10px)',
+        padding: '10px 20px',
+        borderRadius: 50
+      }}>
+        <button onClick={handleExplode} style={{ background: '#ff4444', border: 'none', padding: '8px 20px', borderRadius: 30, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>💥 پودر کردن</button>
+        <button onClick={handleReset} style={{ background: '#444', border: 'none', padding: '8px 20px', borderRadius: 30, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>🔄 تکرار</button>
+        <button onClick={handleScreenshot} style={{ background: '#2c3e50', border: 'none', padding: '8px 20px', borderRadius: 30, color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>📸 عکس</button>
+      </div>
+      
+      {/* راهنما */}
+      <div style={{
+        position: 'fixed',
+        bottom: 10,
+        left: 10,
+        background: 'rgba(0,0,0,0.5)',
+        padding: '4px 12px',
+        borderRadius: 20,
+        fontSize: 10,
+        color: '#aaa',
+        zIndex: 1000
+      }}>
+        🖱️ موس رو حرکت بده - ذرات فرار می‌کنن!
+      </div>
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);

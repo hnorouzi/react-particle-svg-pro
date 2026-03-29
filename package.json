@@ -1,0 +1,56 @@
+{
+  "name": "react-particle-svg-pro",
+  "version": "1.0.0",
+  "description": "Professional particle animation component for SVG logos with explode and fade effects",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "webpack --mode production",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hnorouzi/react-particle-svg.git"
+  },
+  "keywords": [
+    "react",
+    "particle",
+    "svg",
+    "animation",
+    "explode",
+    "logo"
+  ],
+  "author": "Hamidreza Norouzi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hnorouzi/react-particle-svg/issues"
+  },
+  "homepage": "https://github.com/hnorouzi/react-particle-svg#readme",
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.0",
+    "@babel/preset-env": "^7.22.0",
+    "@babel/preset-react": "^7.22.0",
+    "babel-loader": "^9.1.0",
+    "css-loader": "^6.8.0",
+    "html-webpack-plugin": "^5.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "style-loader": "^3.3.0",
+    "webpack": "^5.85.0",
+    "webpack-cli": "^5.1.0",
+    "webpack-dev-server": "^4.15.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.8.0"
+  }
+}

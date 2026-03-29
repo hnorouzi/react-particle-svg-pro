@@ -1,8 +1,8 @@
 # 🎨 React Particle SVG - Professional Particle Animation Component
 
-[![npm version](https://badge.fury.io/js/react-particle-svg.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
-[![license](https://img.shields.io/npm/l/react-particle-svg.svg)](https://github.com/yourusername/react-particle-svg-pro/blob/main/LICENSE)
-[![downloads](https://img.shields.io/npm/dm/react-particle-svg.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
+[![npm version](https://badge.fury.io/js/react-particle-svg-pro.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
+[![license](https://img.shields.io/npm/l/react-particle-svg-pro.svg)](https://github.com/yourusername/react-particle-svg-pro/blob/main/LICENSE)
+[![downloads](https://img.shields.io/npm/dm/react-particle-svg-pro.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
 [![npm version](https://badge.fury.io/js/react-particle-svg-pro.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
 
 **Turn any SVG logo into thousands of animated particles with professional effects**

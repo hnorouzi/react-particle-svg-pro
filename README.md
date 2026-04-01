@@ -1,227 +1,173 @@
-# 🎬 Animation Trigger
+# 🎨 react-particle-svg-pro
 
-A simple, lightweight JavaScript library to animate multiple elements with custom animations on a single click. Zero dependencies, works with any framework (React, Vue, Vanilla JS).
+[![npm version](https://badge.fury.io/js/react-particle-svg-pro.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
+[![npm downloads](https://img.shields.io/npm/dm/react-particle-svg-pro.svg)](https://www.npmjs.com/package/react-particle-svg-pro)
+[![license](https://img.shields.io/npm/l/react-particle-svg-pro.svg)](https://github.com/hnorouzi/react-particle-svg-pro/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/hnorouzi/react-particle-svg-pro)](https://github.com/hnorouzi/react-particle-svg-pro/stargazers)
 
-[![npm version](https://badge.fury.io/js/animation-trigger.svg)](https://www.npmjs.com/package/animation-trigger)
-[![downloads](https://img.shields.io/npm/dm/animation-trigger.svg)](https://www.npmjs.com/package/animation-trigger.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://36kxph.csb.app/)
+**Turn any SVG logo into thousands of animated particles with professional effects** ✨
+
+Transform your SVG logos into stunning particle animations with explode, fade, and mouse interaction effects. Perfect for landing pages, portfolio showcases, and interactive backgrounds.
+
+---
 
 ## ✨ Features
 
-- 🚀 **Simple API** - Just 3 lines of code!
-- 🎯 **Custom animations per element** - Each element can have its own animation
-- 🎨 **15+ built-in animations** - Exit animations (slide, fade, zoom, rotate) + Enter animations (slide, fade, zoom, rotate, bounce)
-- 🔄 **Toggle mode** - Show/hide elements with enter/exit animations
-- ⚡ **Zero dependencies** - Lightweight and fast
-- 🔧 **Works everywhere** - React, Vue, Angular, or vanilla JS
-- 📦 **Tree-shakable** - Only import what you need
+### 🎯 Core
+- 🔄 Convert any SVG into thousands of moving particles
+- 💥 Explode animation with realistic physics effects
+- 🌊 Gradual fade-out animation
+- 🖱️ Mouse interaction (repel/attract particles)
+
+### 🎨 Visual
+- 🌈 3 color modes: Single, Rainbow, Heat
+- ⚪ 4 particle shapes: Circle, Square, Triangle, Star
+- ✨ Random glow effect on particles
+- 🎭 4 animation modes: Morph, Vortex, Wave, Bounce
+
+### 🎮 Export
+- 📸 Screenshot capture and download
+- 🎥 Video recording (MP4)
+- 💾 Save/load state to localStorage
+- 🔊 Optional sound effects
+
+---
 
 ## 📦 Installation
 
-```bash
-npm install animation-trigger
-```
-🚀 Quick Start
+npm install react-particle-svg-pro
 
-Vanilla JavaScript
-```bash
-import { AnimationTrigger } from 'animation-trigger';
+or with yarn:
 
-// Exit only - elements will be removed after animation
-new AnimationTrigger({
-  elements: ['.modal', '.popup', '.form'],
-  exitAnimations: ['slideOutLeft', 'fadeOut', 'slideOutUp'],
-  activator: '#closeButton'
-});
+yarn add react-particle-svg-pro
 
-// Toggle mode - show/hide with enter/exit animations
-new AnimationTrigger({
-  elements: ['.menu', '.sidebar'],
-  exitAnimations: ['slideOutLeft', 'slideOutUp'],
-  enterAnimations: ['slideInRight', 'slideInDown'],
-  activator: '#toggleButton',
-  toggle: true  // Click to toggle visibility
-});
-```
+---
 
-React
-```bash
-import React, { useEffect } from 'react';
-import { AnimationTrigger } from 'animation-trigger';
+## 🚀 Quick Start
+
+import React, { useRef } from 'react';
+import ParticleSVG from 'react-particle-svg-pro';
+
+const myLogo = `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="black"/></svg>`;
 
 function App() {
-  useEffect(() => {
-    // Exit only
-    new AnimationTrigger({
-      elements: ['.box1', '.box2', '.box3'],
-      exitAnimations: ['slideOutLeft', 'fadeOut', 'rotateOut'],
-      activator: '#deleteBtn'
-    });
-    
-    // Toggle mode
-    new AnimationTrigger({
-      elements: ['.panel'],
-      exitAnimations: ['slideOutUp'],
-      enterAnimations: ['slideInDown'],
-      activator: '#togglePanel',
-      toggle: true
-    });
-  }, []);
-
+  const particleRef = useRef();
+  
   return (
-    <div>
-      <div className="box1">Box 1</div>
-      <div className="box2">Box 2</div>
-      <div className="box3">Box 3</div>
-      <button id="deleteBtn">Delete All</button>
-      <button id="togglePanel">Toggle Panel</button>
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <ParticleSVG
+        ref={particleRef}
+        svgString={myLogo}
+        particleCount={2500}
+        colorMode="rainbow"
+        animationMode="vortex"
+        onComplete={() => console.log('Logo formed!')}
+      />
+      
+      <button onClick={() => particleRef.current?.explode()}>💥 Explode</button>
+      <button onClick={() => particleRef.current?.reset()}>🔄 Reset</button>
     </div>
   );
 }
-```
 
-📖 API
-AnimationTrigger(config)
-Parameter	Type	Default	Description
-elements	string[]	required	CSS selectors of elements to animate
-exitAnimations	string[]	required	Exit animation types for each element (must match elements count)
-enterAnimations	string[]	optional	Enter animation types for toggle mode
-activator	string	required	CSS selector of the button that triggers animations
-toggle	boolean	false	If true, toggles visibility (show/hide). If false, removes elements after exit
+---
 
-🎨 Available Animations
-Exit Animations (Elements leave the screen)
-Animation	Description
-slideOutLeft	Slides element out to the left
-slideOutRight	Slides element out to the right
-slideOutUp	Slides element out to the top
-slideOutDown	Slides element out to the bottom
-fadeOut	Fades element out
-zoomOut	Zooms out and fades element
-rotateOut	Rotates and fades element
-Enter Animations (Elements appear on screen) 🆕
-Animation	Description
-slideInLeft	Slides element in from the left
-slideInRight	Slides element in from the right
-slideInUp	Slides element in from the bottom
-slideInDown	Slides element in from the top
-fadeIn	Fades element in
-zoomIn	Zooms in and fades element
-rotateIn	Rotates and fades in
-bounceIn	Bounces in with elastic effect
+## 📖 Props
 
-💡 Examples
-Example 1: Different exit animations
-```bash
-new AnimationTrigger({
-  elements: ['.header', '.content', '.footer'],
-  exitAnimations: ['slideOutUp', 'fadeOut', 'slideOutDown'],
-  activator: '#closeAll'
-});
-```
+| Name | Type | Default | Description |
+|------|------|---------|-------------|
+| svgString | string | required | SVG content as string |
+| particleCount | number | 2000 | Number of particles (500-5000) |
+| particleColor | string | #ff6b6b | Particle color |
+| backgroundColor | string | #0a0a0a | Background color |
+| animationDuration | number | 2500 | Formation animation duration (ms) |
+| explodeDuration | number | 800 | Explode animation duration (ms) |
+| fadeDuration | number | 2000 | Fade out duration (ms) |
+| colorMode | string | single | single, rainbow, heat |
+| animationMode | string | morph | morph, vortex, wave, bounce |
+| particleShape | string | circle | circle, square, triangle, star |
+| mouseEffect | boolean | true | Enable/disable mouse interaction |
+| mouseEffectType | string | repel | repel or attract |
+| autoStart | boolean | true | Auto-start animation on load |
 
-Example 2: Same animation for multiple elements
-```bash
-new AnimationTrigger({
-  elements: ['.card1', '.card2', '.card3'],
-  exitAnimations: ['slideOutLeft', 'slideOutLeft', 'slideOutLeft'],
-  activator: '#removeCards'
-});
-```
+---
 
-Example 3: Toggle mode with enter/exit animations
-```bash
-new AnimationTrigger({
-  elements: ['.dropdown', '.menu'],
-  exitAnimations: ['slideOutUp', 'fadeOut'],
-  enterAnimations: ['slideInDown', 'fadeIn'],
-  activator: '#menuButton',
-  toggle: true  // Click once to hide, click again to show
-});
-```
+## 🎮 Ref Methods
 
-Example 4: Modal with fade animation
-```bash
-new AnimationTrigger({
-  elements: ['.modal', '.overlay'],
-  exitAnimations: ['zoomOut', 'fadeOut'],
-  activator: '#closeModal'
-});
-```
+| Method | Description |
+|--------|-------------|
+| explode() | Trigger explode animation |
+| reset() | Reset to initial state |
+| downloadScreenshot(filename) | Download screenshot as PNG |
+| downloadVideo(filename, duration) | Download animation as MP4 |
+| getProgress() | Get current progress (0-100) |
+| isAnimating() | Check if animation is running |
+| saveState() | Save current state to localStorage |
+| loadState() | Load saved state from localStorage |
 
-🔧 Advanced Usage
-Using the AnimationEngine directly
-For more control, you can use the core AnimationEngine:
-```bash
-import { AnimationEngine } from 'animation-trigger';
+---
 
-// Initialize
-AnimationEngine.init();
+## 🎯 Callbacks
 
-// Exit animation
-const element = document.querySelector('.my-element');
-AnimationEngine.exit(element, 'slideOutLeft', {
-  duration: 800,
-  removeAfter: true,
-  onComplete: () => console.log('Animation done!')
-});
+| Callback | Description |
+|----------|-------------|
+| onReady | Called when component is ready |
+| onStart | Called when animation starts |
+| onProgress | Called with progress (0-100) |
+| onComplete | Called when formation completes |
+| onExplodeStart | Called when explode starts |
+| onExplodeComplete | Called when explode completes |
+| onFadeComplete | Called when fade completes |
 
-// Enter animation
-AnimationEngine.enter(element, 'bounceIn', {
-  duration: 600,
-  onComplete: () => console.log('Element appeared!')
-});
-```
+---
 
-React Hook
-For React projects, you can also use the built-in hook:
-```bash
-import { useAnimation } from 'animation-trigger';
+## 🎨 Example with Controls
 
-function MyComponent() {
-  useAnimation({
-    elements: ['.modal', '.backdrop'],
-    exitAnimations: ['slideOutUp', 'fadeOut'],
-    enterAnimations: ['slideInDown', 'fadeIn'],
-    activator: '#closeModal',
-    toggle: true
-  });
+import React, { useRef, useState } from 'react';
+import ParticleSVG from 'react-particle-svg-pro';
 
-  return <div>...</div>;
+function Example() {
+  const ref = useRef();
+  const [progress, setProgress] = useState(0);
+  
+  return (
+    <div>
+      <ParticleSVG
+        ref={ref}
+        svgString={myLogo}
+        particleCount={3000}
+        colorMode="rainbow"
+        onProgress={setProgress}
+      />
+      
+      <div>
+        <button onClick={() => ref.current?.explode()}>💥 Explode</button>
+        <button onClick={() => ref.current?.reset()}>🔄 Reset</button>
+        <button onClick={() => ref.current?.downloadScreenshot()}>📸 Screenshot</button>
+        <div>Progress: {progress}%</div>
+      </div>
+    </div>
+  );
 }
-```
 
-🛠️ Browser Support
-Works in all modern browsers that support CSS animations:
+---
 
-Chrome 45+
+## 🤝 Contributing
 
-Firefox 42+
+1. Fork the repository
+2. Create a feature branch (git checkout -b feature/amazing-feature)
+3. Commit your changes (git commit -m 'Add amazing feature')
+4. Push to the branch (git push origin feature/amazing-feature)
+5. Open a Pull Request
 
-Safari 10+
+---
 
-Edge 15+
+## 📄 License
 
-📝 License
 MIT © Hamidreza Norouzi
 
-🤝 Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+---
 
-Fork the repository
+## ⭐ Support
 
-Create your feature branch (git checkout -b feature/amazing)
-
-Commit your changes (git commit -m 'Add some amazing feature')
-
-Push to the branch (git push origin feature/amazing)
-
-Open a Pull Request
-
-📧 Contact
-GitHub: @hnorouzi
-
-Email: hamidreza.norouzi1997@gmail.com
-
-Made with ❤️ by Hamidreza Norouzi
+If you like this project, please give it a star on GitHub! ⭐
